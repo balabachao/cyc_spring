@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yanshen.weibo.mapper.WeiBoMapper">
+
+    <select id="find1" resultType="com.yanshen.weibo.entity.Weibo">
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_1 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find2" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_2
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find3" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_3
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find4" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_4
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find5" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_5
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find6" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_6
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find7" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_7
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find8" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_8
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find9" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_9
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <select id="find10" resultType="com.yanshen.weibo.entity.Weibo">
+        select *, CONCAT('http://weibo.com/u/', uid) as url
+        from weibo_tel_10
+        where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+    </select>
+    <insert id="insert">
+        insert into weibo_info  (tel,url,uid,createtime) values (#{tel},#{url},#{uid},now())
+    </insert>
+</mapper>

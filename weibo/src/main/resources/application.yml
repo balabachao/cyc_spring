@@ -1,1 +1,46 @@
-
+#服务器端口和项目名称配置
+server:
+  port: 10172
+#数据库配置
+spring:
+  datasource:
+    name: springboot
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://balabachao.qicp.vip:11702/weibo_tel?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    # 这里我使用了devtool热部署技术，这样就不需要每次都重启服务！！-->
+  debug: true
+  spring:
+    devtools:
+      restart:
+        enabled: true  #设置开启热部署
+    freemarker:
+      cache: false    #页面不加载缓存，修改即时生效
+  #配置Mapper.xml映射文件
+mybatis:
+  mapper-locations: classpath*:mybatis/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+log:
+  info:
+    to: console
+  logging:
+    path: E/ims #日志文件路径
+    level:
+      root: info #日志级别 root表示所有包，也可以单独配置具体包 fatal error warn info debug trace off
