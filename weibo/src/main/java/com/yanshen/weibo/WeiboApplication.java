@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 @SpringBootApplication
 @ComponentScan("com.yanshen.weibo")
 @MapperScan("com.yanshen.weibo.mapper")
+
 public class WeiboApplication {
 
     public static void main(String[] args) {

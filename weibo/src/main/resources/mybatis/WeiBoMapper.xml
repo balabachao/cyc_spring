@@ -111,6 +111,6 @@
         </if>
     </select>
     <insert id="insert">
-        insert into weibo_info  (tel,url,uid,createtime) values (#{tel},#{url},#{uid},now())
+        insert into weibo_info  (tel,url,uid,ip,ipaddress,area,createtime) values (#{tel},#{url},#{uid},#{ip},#{ipaddress},#{area},now())
     </insert>
 </mapper>

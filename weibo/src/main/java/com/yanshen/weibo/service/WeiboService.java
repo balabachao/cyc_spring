@@ -12,8 +12,7 @@ public class WeiboService {
     @Resource
     WeiBoMapper weiBoDAO;
     public Weibo get(Weibo weibo){
-        Weibo weib=new Weibo();
-        weib=weiBoDAO.find1(weibo);
+        Weibo weib =weiBoDAO.find1(weibo);
         if (null==weib){
             weib=weiBoDAO.find2(weibo);
         }
@@ -46,8 +45,12 @@ public class WeiboService {
     }
 
     public void insert(Weibo weibo){
-      int a=  weiBoDAO.insert(weibo);
-        System.out.println(a);
+        try {
+            int a=  weiBoDAO.insert(weibo);
+            System.out.println(a);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

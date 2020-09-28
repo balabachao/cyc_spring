@@ -1,10 +1,41 @@
 package com.yanshen.weibo.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Weibo {
     private String tel;
     private String uid;
     private String url;
     private String message;
+    private String ip;
+    private String ipaddress;
+    private String area;
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getIpaddress() {
+        return ipaddress;
+    }
+
+    public void setIpaddress(String ipaddress) {
+        this.ipaddress = ipaddress;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 
     public String getMessage() {
         return message;
