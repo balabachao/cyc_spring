@@ -40,7 +40,7 @@ public class JsonWeiboController {
     public Weibo find(@PathVariable("tel") String tel, HttpServletRequest request) {
         String ip = request.getRemoteAddr();
 
-        if (!ip.equals("60.191.75.18")&&!ip.equals("192.168.8.67")){
+        if (!ip.equals("60.191.75.18")&&!ip.equals("122.224.174.250")){
             Weibo weibo = checklimit(ip, tel);
             if (weibo.getMessage() != "Success") {
                 return weibo;
@@ -97,45 +97,52 @@ public class JsonWeiboController {
 
     public Weibo checklimit(String ip, String tel) {
         Weibo weibo = new Weibo();
-        String value = redisUtil.get(ip + "MinLimte");
-        String dayValue = redisUtil.get(ip + "DayLimte");
-        if (value == null) {
-            redisUtil.set(ip + "MinLimte", 1);
-            redisUtil.expire(ip + "MinLimte", 60);//设置过期时间60秒
-            if (dayValue == null) {
-                redisUtil.set(ip + "DayLimte", 1);
-                redisUtil.expire(ip + "DayLimte", 86400);//设置过期时间24hours
-            } else {
-                redisUtil.incr(ip + "DayLimte", 1);  //加一次
-                int parseIntDay = Integer.parseInt(dayValue);
-                if (parseIntDay > 5) {
-                    weibo.setMessage("一天内只有5次机会哦");
-                    return weibo;
+        String islimit = redisUtil.get("islimit");
+        if ("1".equals(islimit)){
+            String value = redisUtil.get(ip + "MinLimte");
+            String dayValue = redisUtil.get(ip + "DayLimte");
+            if (value == null) {
+                redisUtil.set(ip + "MinLimte", 1);
+                redisUtil.expire(ip + "MinLimte", 60);//设置过期时间60秒
+                if (dayValue == null) {
+                    redisUtil.set(ip + "DayLimte", 1);
+                    redisUtil.expire(ip + "DayLimte", 86400);//设置过期时间24hours
+                } else {
+                    redisUtil.incr(ip + "DayLimte", 1);  //加一次
+                    int parseIntDay = Integer.parseInt(dayValue);
+                    if (parseIntDay > 5) {
+                        weibo.setMessage("一天内只有5次机会哦");
+                        return weibo;
+                    }
                 }
-            }
-        } else {
-            int parseInt = Integer.parseInt(value);
-            if (dayValue != null) {
-                int daylimit = Integer.parseInt(dayValue);
-                if (daylimit > 5) {
-                    weibo.setMessage("一天内只有5次机会哦");
+            } else {
+                int parseInt = Integer.parseInt(value);
+                if (dayValue != null) {
+                    int daylimit = Integer.parseInt(dayValue);
+                    if (daylimit > 5) {
+                        weibo.setMessage("一天内只有5次机会哦");
+                        weibo.setTel(tel);
+                        weibo.setIp(ip);
+                        return weibo;
+                    }
+                }
+                if (parseInt >= 1) {
+                    weibo.setMessage("1分钟内只能查询一次");
                     weibo.setTel(tel);
                     weibo.setIp(ip);
                     return weibo;
                 }
+                redisUtil.incr(ip + "DayLimte", 1);
             }
-            if (parseInt >= 1) {
-                weibo.setMessage("1分钟内只能查询一次");
-                weibo.setTel(tel);
-                weibo.setIp(ip);
-                return weibo;
-            }
-            redisUtil.incr(ip + "DayLimte", 1);
+            //
+            weibo.setMessage("Success");
+            weibo.setIp(ip);
+            weibo.setTel(tel);
+        }else {
+            weibo.setMessage("Success");
+            weibo.setIp(ip);
+            weibo.setTel(tel);
         }
-        //
-        weibo.setMessage("Success");
-        weibo.setIp(ip);
-        weibo.setTel(tel);
         return weibo;
     }
 }
