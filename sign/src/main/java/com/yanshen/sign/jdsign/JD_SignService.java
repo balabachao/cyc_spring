@@ -119,6 +119,7 @@ public class JD_SignService {
     /**
      * it之家签到
      */
+    @Scheduled(cron = "0 01 00 * * ?")
     private void ithome(){
         String title ="IT之家签到";
         RestTemplate template = new RestTemplate();
@@ -144,9 +145,9 @@ public class JD_SignService {
     }
     public static void main(String[] args) {
         JD_SignService jd_signService =new JD_SignService();
-        //jd_signService.WuYouXingSign();
-        //jd_signService.tiebasign();
-        //jd_signService.JindDong_Sign();
+        jd_signService.WuYouXingSign();
+        jd_signService.tiebasign();
+        jd_signService.JindDong_Sign();
         jd_signService.ithome();
     }
 }
