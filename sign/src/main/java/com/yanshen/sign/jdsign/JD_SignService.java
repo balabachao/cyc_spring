@@ -117,9 +117,9 @@ public class JD_SignService {
     }
 
     public static void main(String[] args) {
-        //JD_SignService jd_signService =new JD_SignService();
+        JD_SignService jd_signService =new JD_SignService();
         //jd_signService.WuYouXingSign();
-        //jd_signService.tiebasign();
+        jd_signService.tiebasign();
         //jd_signService.JindDong_Sign();
     }
 }
