@@ -10,6 +10,7 @@
         <module name="demo" />
         <module name="eureka" />
         <module name="weibo" />
+        <module name="sign" />
         <module name="weibo2" />
         <module name="demo2" />
       </profile>
@@ -22,6 +23,7 @@
       <module name="demo" target="1.8" />
       <module name="demo2" target="1.8" />
       <module name="eureka" target="1.8" />
+      <module name="sign" target="1.8" />
       <module name="weibo" target="1.8" />
       <module name="weibo2" target="1.8" />
     </bytecodeTargetLevel>
@@ -35,6 +37,7 @@
       <module name="demo" options="-parameters" />
       <module name="demo2" options="-parameters" />
       <module name="eureka" options="-parameters" />
+      <module name="sign" options="-parameters" />
       <module name="weibo" options="-parameters" />
       <module name="weibo2" options="-parameters" />
     </option>
