@@ -116,10 +116,37 @@ public class JD_SignService {
         template.postForEntity(push, params,String.class);
     }
 
+    /**
+     * it之家签到
+     */
+    private void ithome(){
+        String title ="IT之家签到";
+        RestTemplate template = new RestTemplate();
+        long  timestamp =  System.currentTimeMillis();
+        String ithome = "https://my.ruanmei.com/api/usersign/sign?" +
+                "userHash=d2114bd29ce849d9677242dba0c1c7eef26a24cf1ae28c96594fff95ed2debee4c73842c722f310bd67b8b9b9f2949fd" +
+                "&" +
+                "type=0" +
+                "&" +
+                "timestamp="+timestamp +
+                "&" +
+                "k5443aa53720e5a11=7d3f6d0ca974068b6fca619735b40628ae3ca6f1e32edb63";
+        ResponseEntity<String> stringResponseEntity =template.getForEntity(ithome,String.class);
+        JSONObject jsonObject = JSONObject.parseObject(stringResponseEntity.getBody());
+        //成功
+       Integer status =  jsonObject.getInteger("ok");
+       if (status==1){
+           //签到成功
+           dopush(title,jsonObject.getString("title")+"签到奖励:"+jsonObject.getString("coin")+"金币");
+       }else {
+           dopush(title,jsonObject.getString("msg"));
+       }
+    }
     public static void main(String[] args) {
         JD_SignService jd_signService =new JD_SignService();
         //jd_signService.WuYouXingSign();
-        jd_signService.tiebasign();
+        //jd_signService.tiebasign();
         //jd_signService.JindDong_Sign();
+        jd_signService.ithome();
     }
 }
