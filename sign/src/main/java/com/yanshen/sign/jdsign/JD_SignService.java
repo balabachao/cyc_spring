@@ -134,6 +134,7 @@ public class JD_SignService {
         JSONObject d =jiamijson.getJSONObject("d");
         String r =d.getString("r");
         System.out.println(timestamp);
+
         System.out.println(r);
         String ithome = "https://my.ruanmei.com/api/usersign/sign?" +
                 "userHash=d2114bd29ce849d9677242dba0c1c7eef26a24cf1ae28c96594fff95ed2debee4c73842c722f310bd67b8b9b9f2949fd"+
