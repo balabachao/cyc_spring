@@ -193,6 +193,7 @@ public class JD_SignService {
     //    jd_signService.JindDong_Sign();
        // jd_signService.ithome();
         jd_signService.neteasesign();
+
     }
     public void dopush(String title,String message){
         RestTemplate template = new RestTemplate();
