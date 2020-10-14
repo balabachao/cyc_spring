@@ -2,16 +2,23 @@ package com.yanshen.sign.jdsign;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static org.springframework.http.HttpHeaders.COOKIE;
 
 @Service
 public class JD_SignService {
@@ -63,7 +70,7 @@ public class JD_SignService {
             JSONObject jsonObject1 = JSONObject.parseObject(resutlt);
             JSONObject info =jsonObject1.getJSONObject("error");
             String messages=info.getString("usermsg");
-            if ("成功"==messages){
+            if ("成功".equals(messages)){
                 JSONArray jsonArray =jsonObject1.getJSONArray("info");
                 String m = "一键签到了："+jsonArray.size()+"个贴吧"+"?sound=healthnotification";
                 dopush(title,m);
@@ -109,12 +116,7 @@ public class JD_SignService {
 
 
 
-    public void dopush(String title,String message){
-        RestTemplate template = new RestTemplate();
-        Map<String, String> params = new HashMap<>();
-        String push = "https://api.day.app/XGJxUAwQRa4ARoKTN7Q4aB/"+title+"/"+message;
-        template.postForEntity(push, params,String.class);
-    }
+
 
     /**
      * it之家签到
@@ -124,14 +126,22 @@ public class JD_SignService {
         String title ="IT之家签到";
         RestTemplate template = new RestTemplate();
         long  timestamp =  System.currentTimeMillis();
+        SimpleDateFormat simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date =simpleDateFormat.format(timestamp);
+        String cript ="https://tool.lmeee.com/jiami/cryptinter?mode=ECB&padding=zero&password=HCa%Y|7%23&iv=&encode=hex&way=1&text="+date+"&method=des";
+        ResponseEntity<String> jiami =template.getForEntity(cript,String.class);
+        JSONObject jiamijson = JSONObject.parseObject(jiami.getBody());
+        JSONObject d =jiamijson.getJSONObject("d");
+        String r =d.getString("r");
+        System.out.println(timestamp);
+        System.out.println(r);
         String ithome = "https://my.ruanmei.com/api/usersign/sign?" +
-                "userHash=d2114bd29ce849d9677242dba0c1c7eef26a24cf1ae28c96594fff95ed2debee4c73842c722f310bd67b8b9b9f2949fd" +
-                "&" +
-                "type=0" +
+                "userHash=d2114bd29ce849d9677242dba0c1c7eef26a24cf1ae28c96594fff95ed2debee4c73842c722f310bd67b8b9b9f2949fd"+
+                "&"+
+                "type=0"+
                 "&" +
                 "timestamp="+timestamp +
-                "&" +
-                "k5443aa53720e5a11=7d3f6d0ca974068b6fca619735b40628ae3ca6f1e32edb63";
+                "&endt="+r;
         ResponseEntity<String> stringResponseEntity =template.getForEntity(ithome,String.class);
         JSONObject jsonObject = JSONObject.parseObject(stringResponseEntity.getBody());
         //成功
@@ -143,11 +153,50 @@ public class JD_SignService {
            dopush(title,jsonObject.getString("msg"));
        }
     }
+
+    /**
+     * 网易云签到
+     */
+    public void neteasesign(){
+        String title ="网易云签到";
+        RestTemplate template = new RestTemplate();
+        long  timestamp =  System.currentTimeMillis();
+        HttpHeaders httpHeaders =new HttpHeaders();
+        List<String> cookies =new ArrayList<String>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        String cookie ="_ntes_nnid=ef035e759c0e5568cfb4efe462fcfd38,1590999247489; _iuqxldmzr_=32; nts_mail_user=cyc19950920@163.com:-1:1; mail_psc_fingerprint=c61b31bd99b4f4bff640071424d6b0d0; WM_TID=EcDhQHf96EpAEVBBAVJuNRPofrH3vWzh; P_INFO=cyc19950920@163.com|1598575697|0|mail163|00&99|zhj&1595297548&mail163#zhj&330100#10#0#0|139022&0||cyc19950920@163.com; vinfo_n_f_l_n3=b0f20c1519c21102.1.3.1591843811254.1602485781702.1602487813897; JSESSIONID-WYYY=fuaDFuezxBSrX0%2BblAvXyXknBhxgoHdO%5Cg0%2BnAJRMdp%2F1TTDoc9rFpq50ekKndOfV6OUht7zRm22M85MaNmyC%2B95r0azoZFhsFdtutB2qn65jAdDMkGAw%5C3Hm3A%2FsAKZ%5C0U4T5Kvq3Xuxtqis6Pwu%2BYgboniPypO3va606xHxDYdE11e%3A1602639759674; NMTID=00OyPdOxiMSIteNpUJsgRGo7o4ibWgAAAF1JKqTFA; WM_NI=x39%2BFLECwz3wgCj2TEdYbtGfDpbe4Yf6P6NDcQw5tlSV9HVsT%2FjaN%2FOeOEsk1%2BmvInQMxtevsVZYkiL0ClqKnrGw%2F%2FCWMgAYQOJD046dh2RIsCoEVhqAFgSlFViNpN2WV0k%3D; WM_NIKE=9ca17ae2e6ffcda170e2e6eea9db3a8bf0bab2b65d9b8a8fa7c45e938a8abbaa53f4a8a98bd07288bfb7b9f62af0fea7c3b92abcedf7ccc548879db99bb27da59da6d3d74fa887ae95c66e88b0ae86b753a6eaa0d7cd50a18fb9d6f768918af7a9d57998f1a682cd258dbb81a6f261f3f5a397cc669393b895e87eb18a96baea6390f08d8df441aeae8998ae2581898388c453939186a5b340f6bca8d3d143b19da1a6d564b39f8a88d268868aa7aff346f2899ad1ea37e2a3; MUSIC_U=464f9e7c44f447918c33297a94187760d0b9f51342c08080917aef477be7421833a649814e309366; __remember_me=true; __csrf=5bb9c43c4e80972b49efdf1816cb4f44";
+        cookies.addAll(Collections.singleton(cookie));
+        httpHeaders.put(HttpHeaders.COOKIE,cookies);
+        String app ="http://music.163.com/api/point/dailyTask?type=0";
+        String web ="http://music.163.com/api/point/dailyTask?type=1";
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, httpHeaders);
+        ResponseEntity<String> webresponse = template.postForEntity(web, request, String.class);
+        ResponseEntity<String> appresponse = template.postForEntity(app, request, String.class);
+        JSONObject webobj =JSONObject.parseObject(webresponse.getBody());
+        JSONObject appobj =JSONObject.parseObject(appresponse.getBody());
+        if (-2==(Integer) webobj.get("code")){
+            StringBuffer msg =new StringBuffer();
+            msg.append("web"+webobj.get("msg"));
+            msg.append("&&");
+            msg.append("app"+appobj.get("msg"));
+            dopush(title,msg.toString());
+        }else {
+            dopush(title,"签到成功");
+        }
+
+    }
     public static void main(String[] args) {
         JD_SignService jd_signService =new JD_SignService();
-        jd_signService.WuYouXingSign();
-        jd_signService.tiebasign();
-        jd_signService.JindDong_Sign();
-        jd_signService.ithome();
+     //  jd_signService.WuYouXingSign();
+    //jd_signService.tiebasign();
+    //    jd_signService.JindDong_Sign();
+       // jd_signService.ithome();
+        jd_signService.neteasesign();
+    }
+    public void dopush(String title,String message){
+        RestTemplate template = new RestTemplate();
+        Map<String, String> params = new HashMap<>();
+        String push = "https://api.day.app/XGJxUAwQRa4ARoKTN7Q4aB/"+title+"/"+message;
+        template.postForEntity(push, params,String.class);
     }
 }
