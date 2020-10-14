@@ -199,5 +199,6 @@ public class JD_SignService {
         Map<String, String> params = new HashMap<>();
         String push = "https://api.day.app/XGJxUAwQRa4ARoKTN7Q4aB/"+title+"/"+message;
         template.postForEntity(push, params,String.class);
+
     }
 }
