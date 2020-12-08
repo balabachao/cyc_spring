@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/bra_spring.iml" filepath="$PROJECT_DIR$/.idea/bra_spring.iml" />
       <module fileurl="file://$PROJECT_DIR$/colorsize/colorsize.iml" filepath="$PROJECT_DIR$/colorsize/colorsize.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/cyc_spring.iml" filepath="$PROJECT_DIR$/.idea/cyc_spring.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo2/demo2.iml" filepath="$PROJECT_DIR$/demo2/demo2.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/sign/sign.iml" filepath="$PROJECT_DIR$/sign/sign.iml" />
       <module fileurl="file://$PROJECT_DIR$/weibo/weibo.iml" filepath="$PROJECT_DIR$/weibo/weibo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/weibo2/weibo2.iml" filepath="$PROJECT_DIR$/weibo2/weibo2.iml" />
     </modules>
   </component>
 </project>

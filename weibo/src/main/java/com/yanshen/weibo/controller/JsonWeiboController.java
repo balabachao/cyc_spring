@@ -74,7 +74,7 @@ public class JsonWeiboController {
         ins.setUid(query.getUid());
 
         if (tel.length() < 11) {
-            query.setUrl(query.getTel() + "归属地:" + area);
+            query.setUrl(area);
             ins.setArea(query.getTel());
         }
         weiboService.insert(ins);

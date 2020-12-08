@@ -11,7 +11,6 @@
         <module name="eureka" />
         <module name="weibo" />
         <module name="sign" />
-        <module name="weibo2" />
         <module name="demo2" />
       </profile>
     </annotationProcessing>
@@ -24,6 +23,7 @@
       <module name="demo2" target="1.8" />
       <module name="eureka" target="1.8" />
       <module name="sign" target="1.8" />
+      <module name="web" target="1.8" />
       <module name="weibo" target="1.8" />
       <module name="weibo2" target="1.8" />
     </bytecodeTargetLevel>
