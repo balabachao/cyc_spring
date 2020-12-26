@@ -4,13 +4,19 @@ import com.yanshen.jdbean.exception.ExceptionFilter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @ComponentScan("com.yanshen.jdbean")
 @MapperScan("com.yanshen.jdbean.mapper")
+@EnableConfigurationProperties
+@EnableScheduling
+@EnableEurekaClient
 public class JdBeanApplication {
 
     @Bean

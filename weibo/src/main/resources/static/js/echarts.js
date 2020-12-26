@@ -51079,7 +51079,7 @@ var visualHandlers = VisualMapping.visualHandlers = {
         applyVisual: makeApplyVisual('color'),
 
         /**
-         * Create a mapper function
+         * Create a mybatis function
          * @return {Function}
          */
         getColorMapper: function () {
@@ -66863,13 +66863,13 @@ var AxisPointerModel = extendComponentModel({
 
         // [group0, group1, ...]
         // Each group can be: {
-        //      mapper: function () {},
+        //      mybatis: function () {},
         //      singleTooltip: 'multiple',  // 'multiple' or 'single'
         //      xAxisId: ...,
         //      yAxisName: ...,
         //      angleAxisIndex: ...
         // }
-        // mapper: can be ignored.
+        // mybatis: can be ignored.
         //      input: {axisInfo, value}
         //      output: {axisInfo, value}
         link: [],

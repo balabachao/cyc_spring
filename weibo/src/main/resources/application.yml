@@ -25,7 +25,7 @@ spring:
   datasource:
     name: springboot
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://balabachao.qicp.vip:11702/weibo_tel?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.10.10:3306/test?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 123456
     # 使用druid数据源

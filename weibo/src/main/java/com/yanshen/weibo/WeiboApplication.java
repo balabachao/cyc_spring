@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 @ComponentScan("com.yanshen.weibo")
-@MapperScan("com.yanshen.weibo.mapper")
+@MapperScan("com.yanshen.weibo.mybatis")
 
 public class WeiboApplication {
 

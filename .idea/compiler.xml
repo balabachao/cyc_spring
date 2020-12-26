@@ -7,21 +7,25 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="colorsize" />
+        <module name="jd-bean" />
         <module name="demo" />
         <module name="eureka" />
         <module name="weibo" />
-        <module name="sign" />
         <module name="demo2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="BaiduClolr" target="1.8" />
-      <module name="BaiduColorize" target="1.8" />
       <module name="baiducolorize" target="1.8" />
+      <module name="BaiduColorize" target="1.8" />
       <module name="colorsize" target="1.8" />
       <module name="demo" target="1.8" />
       <module name="demo2" target="1.8" />
       <module name="eureka" target="1.8" />
+      <module name="jd-bean" target="1.8" />
+      <module name="jd-code" target="1.8" />
+      <module name="jdbean" target="1.8" />
+      <module name="reg" target="1.8" />
       <module name="sign" target="1.8" />
       <module name="web" target="1.8" />
       <module name="weibo" target="1.8" />
@@ -37,6 +41,10 @@
       <module name="demo" options="-parameters" />
       <module name="demo2" options="-parameters" />
       <module name="eureka" options="-parameters" />
+      <module name="jd-bean" options="-parameters" />
+      <module name="jd-code" options="-parameters" />
+      <module name="jdbean" options="-parameters" />
+      <module name="reg" options="-parameters" />
       <module name="sign" options="-parameters" />
       <module name="weibo" options="-parameters" />
       <module name="weibo2" options="-parameters" />

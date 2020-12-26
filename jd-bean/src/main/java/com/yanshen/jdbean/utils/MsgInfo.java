@@ -4,6 +4,15 @@ public class MsgInfo<T> {
     private String message = "success";
     private String code = "000000"; // 服务号 + 编号, 000000表示成功, 100000表示提示, 200000 表示数据库查询信息提示，300000表示接口异常
     private T      data;
+    private String provided ="iPhone 12 Mini";
+
+    public String getProvided() {
+        return provided;
+    }
+
+    public void setProvided(String provided) {
+        this.provided = provided;
+    }
 
     public MsgInfo() {}
 
