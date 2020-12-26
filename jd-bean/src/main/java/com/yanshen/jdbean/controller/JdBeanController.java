@@ -1,5 +1,6 @@
 package com.yanshen.jdbean.controller;
 
+import com.yanshen.jdbean.schedule.JDScheduler;
 import com.yanshen.jdbean.service.JdBeanService;
 import com.yanshen.jdbean.utils.DateUtil;
 import com.yanshen.jdbean.utils.JdBean;
@@ -23,6 +24,8 @@ public class JdBeanController {
 
     @Autowired
     JdBeanService addCodeService;
+    @Autowired
+    JDScheduler jdScheduler;
 
 
     @GetMapping("/bean/{code}")
@@ -88,6 +91,12 @@ public class JdBeanController {
         msgInfo.setData(list);
         return msgInfo;
     }
+    @GetMapping("/push")
+    public MsgInfo push(){
+        MsgInfo msgInfo =new MsgInfo();
+        jdScheduler.getbeanData();
+        return msgInfo;
+    }
 
     public String nextTime() {
         String msg = "";
@@ -147,4 +156,5 @@ public class JdBeanController {
         }
         return ip;
     }
+
 }
