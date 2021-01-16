@@ -22,6 +22,9 @@ public class JdBeanService {
     public List<JdBean> findByType(Integer type){
         return jdBeanMapper.findByType(type);
     }
+    public List<JdBean> findAll(){
+        return jdBeanMapper.findAll();
+    }
     public List<JdBean> findByIP(String ip){
         List<JdBean> list =jdBeanMapper.findByIP(ip);
         if (!CollectionUtils.isEmpty(list)){
