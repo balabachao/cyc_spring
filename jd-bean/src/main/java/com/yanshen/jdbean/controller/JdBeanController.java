@@ -82,6 +82,32 @@ public class JdBeanController {
         msgInfo.setMessage("添加赚赚码成功!," + nextTime());
         return msgInfo;
     }
+    @GetMapping("/joy/{code}")
+    public MsgInfo joy(@PathVariable("code") String code, HttpServletRequest request) throws UnsupportedEncodingException {
+        isChinese(code);
+        JdBean bean = new JdBean();
+        MsgInfo msgInfo = new MsgInfo();
+        bean.setType(5);
+        bean.setCode(code);
+        bean.setIp(getIP(request));
+        checkBean(bean);
+        addCodeService.addService(bean);
+        msgInfo.setMessage("添加joy码成功!," + nextTime());
+        return msgInfo;
+    }
+    @GetMapping("/cash/{code}")
+    public MsgInfo cash(@PathVariable("code") String code, HttpServletRequest request) throws UnsupportedEncodingException {
+        isChinese(code);
+        JdBean bean = new JdBean();
+        MsgInfo msgInfo = new MsgInfo();
+        bean.setType(6);
+        bean.setCode(code);
+        bean.setIp(getIP(request));
+        checkBean(bean);
+        addCodeService.addService(bean);
+        msgInfo.setMessage("添加Cash码成功!," + nextTime());
+        return msgInfo;
+    }
     @GetMapping("/get")
     public MsgInfo getByip(HttpServletRequest request) throws UnsupportedEncodingException {
         JdBean bean = new JdBean();

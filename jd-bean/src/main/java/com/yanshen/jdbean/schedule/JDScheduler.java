@@ -28,29 +28,37 @@ public class JDScheduler {
     ResponseEntity<String> response = null;
 
     public void getbeanData() {
-        List<JdBean> beans = jdBeanService.findByType(1);
-        List<JdBean> farms = jdBeanService.findByType(2);
-        List<JdBean> pets = jdBeanService.findByType(3);
-        List<JdBean> zzs = jdBeanService.findByType(4);
-        push_update(beans, 1);
-        push_update(farms, 2);
-        push_update(pets, 3);
+        //List<JdBean> beans = jdBeanService.findByType(1);
+        //List<JdBean> farms = jdBeanService.findByType(2);
+        //List<JdBean> pets = jdBeanService.findByType(3);
+        //List<JdBean> zzs = jdBeanService.findByType(4);
+        List<JdBean> joys =jdBeanService.findByType(5);
+        //push_update(beans, 1);
+        //push_update(farms, 2);
+        //push_update(pets, 3);
+        push_update(joys,5);
 
     }
 
     public void push_update(List<JdBean> beans, Integer type) {
         String url = "";
         if (type == 1) {
-            url = "http://api.turinglabs.net/api/v1/jd/bean/create/";
+            url = "http://api.turinglabs.net/api/v1/jd/bean/create/";//种豆
         }
         if (type == 2) {
-            url = "http://api.turinglabs.net/api/v1/jd/farm/create/";
+            url = "http://api.turinglabs.net/api/v1/jd/farm/create/";//农场
         }
         if (type == 3) {
-            url = "http://api.turinglabs.net/api/v1/jd/pet/create/";
+            url = "http://api.turinglabs.net/api/v1/jd/pet/create/";//萌宠
         }
         if (type == 4) {
-            url = "http://api.turinglabs.net/api/v1/jd/pet/create/";
+            url = "http://api.turinglabs.net/api/v1/jd/pet/create/";//赚赚
+        }
+        if (type == 5) {
+            url = "https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/";//joy
+        }
+        if (type == 6) {
+            url = "https://code.chiang.fun/api/v1/jd/jdcash/create/";//joy
         }
         List<JdBean> update = new ArrayList<>();
         String finalUrl = url;
@@ -69,6 +77,7 @@ public class JDScheduler {
                 pushQQ(msg + ":" + sb.toString(), type, pushType.get());
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.info("Error:{}:",e.getMessage());
             }
             bean.setSubmitted(1);
             update.add(bean);
