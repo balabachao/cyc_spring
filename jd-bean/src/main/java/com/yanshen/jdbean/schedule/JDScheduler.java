@@ -16,7 +16,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+
+import java.util.stream.Collectors;
 
 @Component
 public class JDScheduler {
@@ -28,15 +31,27 @@ public class JDScheduler {
     ResponseEntity<String> response = null;
 
     public void getbeanData() {
-        //List<JdBean> beans = jdBeanService.findByType(1);
-        //List<JdBean> farms = jdBeanService.findByType(2);
-        //List<JdBean> pets = jdBeanService.findByType(3);
-        //List<JdBean> zzs = jdBeanService.findByType(4);
+        pushBark("推送助力码","开始推送");
+        List<JdBean> beans = jdBeanService.findAll();
+        Map<Integer,List<JdBean>> map =beans.stream().collect(Collectors.groupingBy(JdBean::getType));
+        for(Map.Entry<Integer, List<JdBean>> entry : map.entrySet()){
+            Integer type =entry.getKey();
+            List<JdBean> mapValue = entry.getValue();
+            push_update(mapValue,type);
+        }
+/*        List<JdBean> beans = jdBeanService.findByType(1);
+        List<JdBean> farms = jdBeanService.findByType(2);
+        List<JdBean> pets = jdBeanService.findByType(3);
+        List<JdBean> zzs = jdBeanService.findByType(4);
         List<JdBean> joys =jdBeanService.findByType(5);
-        //push_update(beans, 1);
-        //push_update(farms, 2);
-        //push_update(pets, 3);
+        List<JdBean> cashs =jdBeanService.findByType(6);
+        push_update(beans, 1);
+        push_update(farms, 2);
+        push_update(pets, 3);
         push_update(joys,5);
+        push_update(cashs,6);*/
+        pushBark("推送助力码","结束推送");
+
 
     }
 
@@ -67,14 +82,15 @@ public class JDScheduler {
             try {
                 logger.info("开始提交!");
                 String msg = getForbeans(finalUrl, bean.getCode());
-                Thread.sleep(5000);
+                Thread.sleep(1000);
                 StringBuilder sb = new StringBuilder(bean.getCode());
                 if (bean.getIp().equals("qqgroup")) {
                     pushType.set("group");
                 } else {
                     pushType.set("send");
                 }
-                pushQQ(msg + ":" + sb.toString(), type, pushType.get());
+                logger.info("MSG:{}",msg);
+                //pushQQ(msg + ":" + sb.toString(), type, pushType.get());
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.info("Error:{}:",e.getMessage());
@@ -116,5 +132,11 @@ public class JDScheduler {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url + msg);
         response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<String>(header), String.class);
         logger.info("QQ发送成功！接口返回信息为：{}", response.getBody());
+    }
+    public void pushBark(String t,String m){
+        String url = "https://api.day.app/4ppVFBUZxhEnxPzumvtsdF/"+t+"/"+m;
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+        response =restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), String.class);
+        logger.info("Bark发送成功！接口返回信息为：{}", response.getBody());
     }
 }

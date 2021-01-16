@@ -30,4 +30,8 @@
             where id =#{item.id}
         </foreach>
     </update>
+
+    <select id="findAll" resultType ="com.yanshen.jdbean.utils.JdBean">
+         select  * from  jd_code
+    </select>
 </mapper>
