@@ -1,6 +1,6 @@
 #服务器端口和项目名称配置
 server:
-  port: 10172
+  port: 2233
 eureka:
   client:
     serviceUrl:
@@ -14,7 +14,7 @@ spring:
     name: com.yanshen.weibo
   redis:
     database: 0
-    host: 192.168.30.120
+    host: 127.0.0.1
     port: 6379
     jedis:
       pool:
@@ -22,12 +22,14 @@ spring:
         max-idle: 10
         max-wait: 100000
     timeout: 5000
+  profiles:
+    active: dev
   datasource:
     name: springboot
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.10.10:3306/test?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/weibo_tel?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: 63kTRHjRKHtdFBs6
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     filters: stat
@@ -54,13 +56,13 @@ spring:
   #配置Mapper.xml映射文件
 mybatis:
   mapper-locations: classpath*:mybatis/*.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #log:
   #info:
     #to: console
-  logging:
-    path: E/ims #日志文件路径
-    level:
-      root: info #日志级别 root表示所有包，也可以单独配置具体包 fatal error warn info debug trace off
+#  logging:
+#    path: E/ims #日志文件路径
+#    level:
+#      root: info #日志级别 root表示所有包，也可以单独配置具体包 fatal error warn info debug trace off
 

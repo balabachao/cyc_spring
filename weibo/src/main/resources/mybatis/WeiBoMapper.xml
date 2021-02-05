@@ -10,6 +10,78 @@
         <if test="uid!=null">
             uid =#{uid}
         </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_2 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_3 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_4 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_5 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_6 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_7 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_8 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_9 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
+        UNION ALL
+        select *,CONCAT('http://weibo.com/u/',uid)as url from weibo_tel_10 where
+        <if test="tel!=null">
+            tel = #{tel}
+        </if>
+        <if test="uid!=null">
+            uid =#{uid}
+        </if>
     </select>
     <select id="find2" resultType="com.yanshen.weibo.entity.Weibo">
         select *, CONCAT('http://weibo.com/u/', uid) as url

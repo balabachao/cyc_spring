@@ -38,8 +38,17 @@ public class JsonWeiboController {
 
     @GetMapping("/tel/{tel}")
     public Weibo find(@PathVariable("tel") String tel, HttpServletRequest request) {
-        String ip = request.getRemoteAddr();
-
+        //String ip = request.getRemoteAddr();
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
         if (!ip.equals("60.191.75.18")&&!ip.equals("122.224.174.250")){
             Weibo weibo = checklimit(ip, tel);
             if (weibo.getMessage() != "Success") {

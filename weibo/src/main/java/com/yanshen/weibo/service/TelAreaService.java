@@ -46,7 +46,7 @@ public class TelAreaService {
         String result = response.getBody();
         System.out.println(result);
         String[] a = result.split(":");
-        System.out.println(a[7]);
+       // System.out.println(a[7]);
         return a[7].substring(0, 6).replace("'","");
     }
 
