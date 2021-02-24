@@ -60,7 +60,7 @@ public class WeiboController {
             weibo.setTel(tel);
         }
 
-        Weibo tname = service.get(weibo);
+        Weibo tname = service.get(tel,"");
         out.print(tname);
         if (tname == null) {
             mav.clear();

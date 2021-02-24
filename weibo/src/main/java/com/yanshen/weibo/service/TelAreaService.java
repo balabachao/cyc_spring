@@ -44,10 +44,11 @@ public class TelAreaService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, getHeader());
         ResponseEntity<String> response = template.postForEntity(url, request, String.class);
         String result = response.getBody();
-        System.out.println(result);
+        //System.out.println(result);
         String[] a = result.split(":");
        // System.out.println(a[7]);
-        return a[7].substring(0, 6).replace("'","");
+        String 归属地=a[7].substring(0, 6).replace("'","");
+        return 归属地;
     }
 
 

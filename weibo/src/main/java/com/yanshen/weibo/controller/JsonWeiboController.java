@@ -38,76 +38,29 @@ public class JsonWeiboController {
 
     @GetMapping("/tel/{tel}")
     public Weibo find(@PathVariable("tel") String tel, HttpServletRequest request) {
-        //String ip = request.getRemoteAddr();
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        if (!ip.equals("60.191.75.18")&&!ip.equals("122.224.174.250")){
+        String ip = getip(request);
+        logger.info("当前ip是:{}",ip);
+        if (!ip.equals("60.191.75.18") && !ip.equals("122.224.174.250")) {
             Weibo weibo = checklimit(ip, tel);
             if (weibo.getMessage() != "Success") {
                 return weibo;
             }
         }
-        Weibo weibo =new Weibo();
+        Weibo weibo = new Weibo();
         if (tel.length() < 10) {
             weibo.setMessage("当前用户无信息");
             weibo.setTel(tel);
             return weibo;
         }
-        verify(tel, weibo);
-        Weibo query = weiboService.get(weibo);
-        if (null == query) {
-            weibo.setMessage("当前用户无信息");
-            weibo.setTel(tel);
-            weiboService.insert(weibo);
-            return weibo;
-        } else {
-            query.setMessage("Success");
-        }
-        String area = telAreaService.postTest(query.getTel());
-        String ipaddress = telAreaService.getIpurl(ip);
-        //记录查询人ip
-        Weibo ins = new Weibo();
-        ins.setIp(ip);
-        ins.setTel(query.getTel());
-        ins.setUrl(query.getUrl());
-        ins.setIpaddress(ipaddress);
-        ins.setArea(area);
-        ins.setUid(query.getUid());
-
-        if (tel.length() < 11) {
-            query.setUrl(area);
-            ins.setArea(query.getTel());
-        }
-        weiboService.insert(ins);
+        Weibo query = weiboService.get(tel, ip);
         return query;
     }
 
-    public void verify(String tel, Weibo weibo) {
-        Weibo message = new Weibo();
-
-        String regex = "^(-?[1-9]\\d*\\.?\\d*)|(-?0\\.\\d*[1-9])|(-?[0])|(-?[0]\\.\\d*)$";
-        boolean flag = tel.matches(regex);
-        if (tel.length() < 11) {
-            weibo.setUid(tel);
-        } else {
-            weibo.setTel(tel);
-        }
-
-
-    }
 
     public Weibo checklimit(String ip, String tel) {
         Weibo weibo = new Weibo();
         String islimit = redisUtil.get("islimit");
-        if ("1".equals(islimit)){
+        if ("1".equals(islimit)) {
             String value = redisUtil.get(ip + "MinLimte");
             String dayValue = redisUtil.get(ip + "DayLimte");
             if (value == null) {
@@ -147,11 +100,26 @@ public class JsonWeiboController {
             weibo.setMessage("Success");
             weibo.setIp(ip);
             weibo.setTel(tel);
-        }else {
+        } else {
             weibo.setMessage("Success");
             weibo.setIp(ip);
             weibo.setTel(tel);
         }
         return weibo;
+    }
+
+
+    private String getip(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 }

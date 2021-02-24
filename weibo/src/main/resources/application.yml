@@ -15,6 +15,7 @@ spring:
   redis:
     database: 0
     host: 127.0.0.1
+    #host: 192.168.30.120
     port: 6379
     jedis:
       pool:
@@ -27,9 +28,10 @@ spring:
   datasource:
     name: springboot
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/weibo_tel?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/weibo?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
+    #url: jdbc:mysql://43.249.192.204:10879/weibo?useUnicode=true&characterEncoding=utf-8&userSSL=false&serverTimezone=GMT%2B8
     username: root
-    password: 63kTRHjRKHtdFBs6
+    password: 6d34761495ec289e
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     filters: stat
