@@ -2,6 +2,7 @@ package com.yanshen.weibo.service;
 
 
 import com.yanshen.weibo.controller.WeiboController;
+import com.yanshen.weibo.entity.TenentQQ;
 import com.yanshen.weibo.entity.Weibo;
 import com.yanshen.weibo.mapper.WeiBoMapper;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class WeiboService {
@@ -77,6 +79,10 @@ public class WeiboService {
         }
 
 
+    }
+
+    public List<TenentQQ> query(String qq){
+        return weiBoDAO.query(qq);
     }
 
 }
