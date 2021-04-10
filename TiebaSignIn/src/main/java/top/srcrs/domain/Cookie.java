@@ -2,7 +2,7 @@ package top.srcrs.domain;
 
 /**
  * 存入用户所填写的BDUSS
- * @author srcrs
+ * @author srcrs-0
  * @Time 2020-10-31
  */
 public class Cookie {
