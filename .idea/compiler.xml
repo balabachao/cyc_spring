@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="TiebaSignIn" />
         <module name="colorsize" />
-        <module name="jd-bean" />
-        <module name="demo" />
-        <module name="eureka" />
         <module name="weibo" />
+        <module name="eureka" />
+        <module name="MultiApplication" />
+        <module name="demo" />
         <module name="demo2" />
       </profile>
     </annotationProcessing>
@@ -22,11 +23,12 @@
       <module name="demo" target="1.8" />
       <module name="demo2" target="1.8" />
       <module name="eureka" target="1.8" />
-      <module name="jd-bean" target="1.8" />
       <module name="jd-code" target="1.8" />
       <module name="jdbean" target="1.8" />
+      <module name="MultiApplication" target="1.8" />
       <module name="reg" target="1.8" />
       <module name="sign" target="1.8" />
+      <module name="TiebaSignIn" target="1.8" />
       <module name="web" target="1.8" />
       <module name="weibo" target="1.8" />
       <module name="weibo2" target="1.8" />
@@ -36,12 +38,12 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="BaiduClolr" options="-parameters" />
       <module name="BaiduColorize" options="-parameters" />
+      <module name="MultiApplication" options="-parameters" />
       <module name="baiducolorize" options="-parameters" />
       <module name="colorsize" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="demo2" options="-parameters" />
       <module name="eureka" options="-parameters" />
-      <module name="jd-bean" options="-parameters" />
       <module name="jd-code" options="-parameters" />
       <module name="jdbean" options="-parameters" />
       <module name="reg" options="-parameters" />

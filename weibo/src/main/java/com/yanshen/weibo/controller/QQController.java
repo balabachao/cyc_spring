@@ -25,7 +25,7 @@ public class QQController {
     public MsgInfo find(@PathVariable("qq") String qq, HttpServletRequest request) {
 
         List<TenentQQ> list =weiboService.query(qq);
-
+       //测试
         MsgInfo msgInfo =new MsgInfo();
         msgInfo.setData(list);
         return msgInfo;
