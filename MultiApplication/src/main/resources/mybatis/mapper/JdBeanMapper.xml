@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yanshen.jdbean.mapper.JdBeanMapper">
+
+    <insert id="addBean" parameterType="com.yanshen.jdbean.utils.JdBean">
+        insert into jd_code (code ,type,createtime,ip) value (
+        #{code},
+        #{type},
+        SYSDATE(),
+        #{ip}
+        )
+    </insert>
+
+    <select id="find" parameterType="com.yanshen.jdbean.utils.JdBean" resultType ="com.yanshen.jdbean.utils.JdBean">
+        select  * from  jd_code where  code = #{code} and type =#{type} limit 1
+    </select>
+    <select id="findByType" resultType ="com.yanshen.jdbean.utils.JdBean">
+         select  * from  jd_code where  type =#{type}
+    </select>
+    <select id="findByIP" resultType ="com.yanshen.jdbean.utils.JdBean">
+         select  * from  jd_code where  ip =#{ip}
+    </select>
+    <update id="update" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update jd_code
+            <set>
+                submitted=#{item.submitted},
+                updatetime=SYSDATE()
+            </set>
+            where id =#{item.id}
+        </foreach>
+    </update>
+
+    <select id="findAll" resultType ="com.yanshen.jdbean.utils.JdBean">
+         select  * from  jd_code
+    </select>
+</mapper>
