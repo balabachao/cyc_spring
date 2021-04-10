@@ -26,6 +26,7 @@ public class QQController {
 
         List<TenentQQ> list =weiboService.query(qq);
        //测试
+        //Test
         MsgInfo msgInfo =new MsgInfo();
         msgInfo.setData(list);
         return msgInfo;
